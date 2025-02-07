@@ -17,6 +17,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.compose.GoogleMap
+import com.google.maps.android.compose.rememberCameraPositionState
 import com.peal.googlemapjetpackcompose.MarkerType
 import com.peal.googlemapjetpackcompose.presentation.MountainsScreenEvent
 import com.peal.googlemapjetpackcompose.presentation.MountainsScreenViewState
@@ -34,7 +38,10 @@ fun MountainMap(
 ) {
     var isMapLoaded by remember { mutableStateOf(false) }
 
-    // TODO: Create cameraPositionState
+    val cameraPositionState = rememberCameraPositionState {
+        position = CameraPosition.fromLatLngZoom(LatLng(23.8103, 90.4125), 10f)
+    }
+
 
     // TODO: Create scope from rememberCoroutineScope
     //   Add LaunchedEffect to zoom when the bounding box changes
@@ -45,7 +52,11 @@ fun MountainMap(
             .fillMaxSize()
             .padding(paddingValues)
     ) {
-        // TODO: Add GoogleMap here
+        GoogleMap(
+            modifier = Modifier.fillMaxSize(),
+            onMapLoaded = { isMapLoaded = true },
+            cameraPositionState = cameraPositionState
+        )
 
         // TODO: Add cameraPositionState to GoogleMap
 

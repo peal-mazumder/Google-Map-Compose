@@ -32,4 +32,4 @@ data class Mountain(
  * Extension function to determine whether a mountain is a "14er", i.e., has an elevation greater
  * than 14,000 feet (~4267 meters).
  */
-fun Mountain.is14er() = elevation >= 500.feet
+fun Mountain.is14er() = elevation >= 3_280.feet

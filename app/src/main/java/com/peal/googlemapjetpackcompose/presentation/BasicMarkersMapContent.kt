@@ -15,20 +15,36 @@
 package com.peal.googlemapjetpackcompose.presentation
 
 import androidx.compose.runtime.Composable
-import com.peal.googlemapjetpackcompose.presentation.MountainsScreenViewState.MountainList
 import com.google.android.gms.maps.model.Marker
+import com.google.maps.android.compose.Marker
+import com.peal.googlemapjetpackcompose.presentation.MountainsScreenViewState.MountainList
+import com.google.maps.android.compose.GoogleMapComposable
+import com.google.maps.android.compose.rememberMarkerState
 import com.peal.googlemapjetpackcompose.data.local.Mountain
+import com.peal.googlemapjetpackcompose.data.local.is14er
+import com.peal.googlemapjetpackcompose.data.utils.toElevationString
 
 /**
  * [GoogleMapComposable] which renders a [MountainList] as a set of basic [Marker]s
  */
-// TODO: Add @GoogleMapComposable annotation
+
 @Composable
+@GoogleMapComposable
 fun BasicMarkersMapContent(
     mountains: List<Mountain>,
     onMountainClick: (Marker) -> Boolean = { false }
 ) {
-    // TODO: Create custom icons for fourteeners and for other mountains
-
-    // TODO: Create Markers from each of the mountains
+    mountains.forEach { mountain ->
+        Marker(
+            state = rememberMarkerState(position = mountain.location),
+            title = mountain.name,
+            snippet = mountain.elevation.toElevationString(),
+            tag = mountain,
+            onClick = { marker ->
+                onMountainClick(marker)
+                false
+            },
+            zIndex = if (mountain.is14er()) 5f else 2f
+        )
+    }
 }

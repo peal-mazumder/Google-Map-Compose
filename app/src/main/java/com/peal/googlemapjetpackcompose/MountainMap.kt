@@ -27,6 +27,9 @@ import com.google.maps.android.compose.CameraPositionState
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.peal.googlemapjetpackcompose.MarkerType
+import com.peal.googlemapjetpackcompose.presentation.AdvancedMarkersMapContent
+import com.peal.googlemapjetpackcompose.presentation.BasicMarkersMapContent
+import com.peal.googlemapjetpackcompose.presentation.ClusteringMarkersMapContent
 import com.peal.googlemapjetpackcompose.presentation.MountainsScreenEvent
 import com.peal.googlemapjetpackcompose.presentation.MountainsScreenViewState
 import kotlinx.coroutines.CoroutineScope
@@ -65,11 +68,6 @@ fun MountainMap(
         }
     }
 
-
-    // TODO: Create scope from rememberCoroutineScope
-    //   Add LaunchedEffect to zoom when the bounding box changes
-    //   Add LaunchedEffect to react to events from the ViewModel
-
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -79,7 +77,29 @@ fun MountainMap(
             modifier = Modifier.fillMaxSize(),
             onMapLoaded = { isMapLoaded = true },
             cameraPositionState = cameraPositionState
-        )
+        ) {
+            when (selectedMarkerType) {
+                MarkerType.Basic -> {
+                    BasicMarkersMapContent(
+                        mountains = viewState.mountains,
+                    )
+                }
+
+                MarkerType.Advanced -> {
+                    AdvancedMarkersMapContent(
+                        mountains = viewState.mountains,
+                    )
+                }
+
+                MarkerType.Clustered -> {
+                    ClusteringMarkersMapContent(
+                        mountains = viewState.mountains,
+                    )
+                }
+            }
+        }
+
+
 
         // TODO: Add cameraPositionState to GoogleMap
 

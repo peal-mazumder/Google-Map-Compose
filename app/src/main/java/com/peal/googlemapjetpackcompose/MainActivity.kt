@@ -16,7 +16,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
-import com.example.mountainmarkers.MountainMap
 import com.peal.googlemapjetpackcompose.presentation.BigSpinner
 import com.peal.googlemapjetpackcompose.presentation.MountainsScreenViewState.Loading
 import com.peal.googlemapjetpackcompose.presentation.MountainsScreenViewState.MountainList
